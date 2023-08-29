@@ -1,0 +1,56 @@
+import re
+
+# Sample resume text
+resume_text = """
+John Doe
+123 Main Street, City, State
+Phone: (123) 456-7890
+Email: johndoe@example.com
+
+Objective:
+Experienced software engineer with a passion for AI and machine learning.
+
+Education:
+Bachelor of Science in Computer Science
+University of Example
+Graduated: May 20XX
+
+Experience:
+Software Developer
+Tech Company Inc.
+June 20XX - Present
+- Developed and maintained web applications using Python and Django.
+- Implemented machine learning algorithms for data analysis.
+
+Skills:
+- Python
+- Machine Learning
+- Django
+"""
+
+# Regular expressions to find sections
+contact_pattern = re.compile(r"(Phone|Email): (.+)")
+education_pattern = re.compile(r"Education:(.+?)(Experience:|$)", re.DOTALL)
+experience_pattern = re.compile(r"Experience:(.+?)(Skills:|$)", re.DOTALL)
+skills_pattern = re.compile(r"Skills:(.+)", re.DOTALL)
+
+# Extracting sections
+contact_info = {}
+contact_match = contact_pattern.findall(resume_text)
+for key, value in contact_match:
+    contact_info[key] = value.strip()
+
+education_match = education_pattern.search(resume_text)
+education_section = education_match.group(1).strip()
+
+experience_match = experience_pattern.search(resume_text)
+experience_section = experience_match.group(1).strip()
+
+skills_match = skills_pattern.search(resume_text)
+skills_section = skills_match.group(1).strip()
+
+# Printing extracted sections
+print("Contact Information:", contact_info)
+print("Education:", education_section)
+print("Experience:", experience_section)
+print("Skills:", skills_section)
