@@ -1,0 +1,38 @@
+import chess
+import chess.svg
+import random
+
+def print_board(board):
+    print(board)
+
+def player_move(board):
+    legal_moves = [move.uci() for move in board.legal_moves]
+    while True:
+        move = input("Your move (e.g., 'e2e4'): ")
+        if move in legal_moves:
+            return move
+        else:
+            print("Invalid move. Try again.")
+
+def ai_move(board):
+    legal_moves = [move for move in board.legal_moves]
+    return random.choice(legal_moves).uci()
+
+def play_chess():
+    board = chess.Board()
+    
+    while not board.is_game_over():
+        print_board(board)
+
+        if board.turn == chess.WHITE:
+            move = player_move(board)
+        else:
+            move = ai_move(board)
+
+        board.push_uci(move)
+
+    print("Game Over")
+    print("Result: {}".format(board.result()))
+
+if __name__ == "__main__":
+    play_chess()
