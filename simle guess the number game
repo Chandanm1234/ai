@@ -1,0 +1,36 @@
+import random
+
+def ai_guess_the_number():
+    print("Welcome to the AI Guess the Number game!")
+    print("Think of a number, and I will try to guess it with continuous random adjustments.")
+
+    # Ask the user for the number of digits
+    num_digits = int(input("How many digits is your number? "))
+
+    # Set the initial range based on the number of digits
+    low = 10 ** (num_digits - 1)
+    high = (10 ** num_digits) - 1
+
+    while True:
+        # Generate a random guess within the current range
+        guess = random.randint(low, high)
+
+        print(f"My guess is {guess}.")
+
+        # Get feedback from the player
+        feedback = input("Is my guess too high (H), too low (L), or correct (C)? ").upper()
+
+        if feedback == 'C':
+            print(f"Yay! I guessed your number.")
+            break
+        elif feedback == 'H':
+            # Adjust the range for the next guess if the current guess is too high
+            high = guess - 1
+        elif feedback == 'L':
+            # Adjust the range for the next guess if the current guess is too low
+            low = guess + 1
+        else:
+            print("Please enter 'H' for too high, 'L' for too low, or 'C' for correct.")
+
+# Run the AI game with continuous random adjustments based on binary search-like feedback
+ai_guess_the_number()
