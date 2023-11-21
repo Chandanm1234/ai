@@ -1,0 +1,55 @@
+from sklearn.tree import DecisionTreeClassifier
+import numpy as np
+
+class AdvancedAIGuessNumber:
+    def __init__(self):
+        self.model = DecisionTreeClassifier()
+        self.min_number = 0
+        self.max_number = 100
+        self.user_number = None
+        self.train_data = []
+        self.train_labels = []
+
+    def get_user_number(self):
+        self.user_number = int(input("Think of a number between 0 and 100: "))
+
+    def get_feedback(self, guess):
+        feedback = input(f"Is {guess} too high (H), too low (L), or correct (C)? ").upper()
+        return feedback
+
+    def update_model(self, guess, feedback):
+        self.train_data.append([guess])
+        if feedback == 'H':
+            label = 1
+            self.max_number = guess - 1
+        elif feedback == 'L':
+            label = -1
+            self.min_number = guess + 1
+        else:
+            label = 0
+        self.train_labels.append(label)
+
+    def train_model(self):
+        if not self.model.tree_.feature[0] == -2:  # Check if the model is not fitted
+            self.model.fit(np.array(self.train_data), np.array(self.train_labels))
+
+    def ai_guess_number(self):
+        self.get_user_number()
+
+        while True:
+            self.train_model()  # Train the model before making predictions
+            guess = self.model.predict([[np.random.randint(self.min_number, self.max_number + 1)]])
+
+            print(f"My guess is {guess[0]}.")
+
+            feedback = self.get_feedback(guess[0])
+
+            if feedback == 'C':
+                print("Yay! I guessed your number.")
+                break
+
+            self.update_model(guess[0], feedback)
+
+# Run the advanced AI guess the number game
+game = AdvancedAIGuessNumber()
+game.ai_guess_number()
