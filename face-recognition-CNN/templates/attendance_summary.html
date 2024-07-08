@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Summary - Face Recognition System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+        .btn-custom {
+            margin-bottom: 10px;
+        }
+        .table-container {
+            margin-top: 20px;
+            display: none; /* Keep the table container hidden initially */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Attendance Summary</h1>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a href="/" class="btn btn-secondary btn-custom">Home</a>
+                <a href="/attendance" class="btn btn-success btn-custom">Attendance Records</a>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <!-- Button to show the summary table -->
+                <button id="show-summary-table-btn" class="btn btn-primary btn-custom">Show Summary</button>
+            </div>
+        </div>
+        <div class="row table-container">
+            <div class="col-md-12">
+                <table id="summary-table" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>ID</th>
+                            <th>Days</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summary-table-body">
+                        <!-- Attendance summary records will be dynamically filled here -->
+                        {% for record in summary %}
+                        <tr>
+                            <td>{{ record.name }}</td>
+                            <td>{{ record.id }}</td>
+                            <td>{{ record.days }}</td>
+                            <td>{{ record.percentage }}%</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Show the summary table when the button is clicked
+            $('#show-summary-table-btn').click(function() {
+                $('.table-container').show();
+            });
+        });
+    </script>
+</body>
+</html>

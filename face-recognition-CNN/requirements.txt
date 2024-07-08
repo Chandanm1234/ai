@@ -1,0 +1,11 @@
+Flask
+opencv-python
+numpy
+pandas
+scikit-learn
+tensorflow==2.10
+keras
+tensorflow_gpu==2.10
+matplotlib
+seaborn
+joblib
